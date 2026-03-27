@@ -36,6 +36,16 @@ export default defineType({
             hotspot: true
           }
         }
+        ,
+        {
+          name: 'logo',
+          title: 'Logo',
+          type: 'image',
+          description: 'Optional logo to show in the hero instead of text',
+          options: {
+            hotspot: true
+          }
+        }
       ]
     },
     {

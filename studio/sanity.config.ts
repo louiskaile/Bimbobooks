@@ -47,7 +47,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 // Main Sanity configuration
 export default defineConfig({
   name: 'default',
-  title: 'Sanity + Next.js – StudioSmall Project Starter Boilerplate',
+  title: 'Bimbobooks',
 
   projectId,
   dataset,

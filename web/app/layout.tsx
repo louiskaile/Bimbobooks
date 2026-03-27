@@ -84,7 +84,7 @@ export default async function RootLayout({
           <main className="">
             <PageTransition>{children}</PageTransition>
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </section>
         <SpeedInsights />
       </body>

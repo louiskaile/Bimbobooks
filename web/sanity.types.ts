@@ -582,7 +582,7 @@ export type SettingsQueryResult = {
   };
 } | null;
 // Variable: homePageQuery
-// Query: *[_type == "homePage"][0]{  _id,  title,  hero{    headline,    subtitle,    image{      asset->{        _id,        url      },      alt,      hotspot    }  },  pageBuilder[]{    _type,    _key,    _type == "infoSection" => {      title,      content,      image{        asset->{          _id,          url        },        alt,        hotspot      }    },    _type == "callToAction" => {      title,      content,      button{        text,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  seo{    metaDescription,    ogImage{      asset->{        _id,        url      }    }  }}
+// Query: *[_type == "homePage"][0]{  _id,  title,  hero{    headline,    subtitle,    image{      asset->{        _id,        url      },      alt,      hotspot    },    logo{      asset->{        _id,        url      },      alt,      hotspot    }  },  pageBuilder[]{    _type,    _key,    _type == "infoSection" => {      title,      content,      image{        asset->{          _id,          url        },        alt,        hotspot      }    },    _type == "callToAction" => {      title,      content,      button{        text,          _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      }    }  },  seo{    metaDescription,    ogImage{      asset->{        _id,        url      }    }  }}
 export type HomePageQueryResult = {
   _id: string;
   title: string | null;
@@ -597,6 +597,7 @@ export type HomePageQueryResult = {
       alt: null;
       hotspot: SanityImageHotspot | null;
     } | null;
+    logo: null;
   } | null;
   pageBuilder: Array<{
     _type: "callToAction";
@@ -867,13 +868,16 @@ export type PostPagesSlugsResult = Array<{
 export type PagesSlugsResult = Array<{
   slug: string;
 }>;
+// Variable: navigationQuery
+// Query: *[_type == "navigation" && _id == "navigation"][0]{  _id,  title,  items[]{    _key,    label,    visible,    link{      _type,      linkType,      href,      openInNewTab,      "page": page->slug.current,      "post": post->slug.current    },    submenu[]{      _key,      label,      visible,      link{        _type,        linkType,        href,        openInNewTab,        "page": page->slug.current,        "post": post->slug.current      }    }  }}
+export type NavigationQueryResult = null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"settings\"][0]": SettingsQueryResult;
-    "*[_type == \"homePage\"][0]{\n  _id,\n  title,\n  hero{\n    headline,\n    subtitle,\n    image{\n      asset->{\n        _id,\n        url\n      },\n      alt,\n      hotspot\n    }\n  },\n  pageBuilder[]{\n    _type,\n    _key,\n    _type == \"infoSection\" => {\n      title,\n      content,\n      image{\n        asset->{\n          _id,\n          url\n        },\n        alt,\n        hotspot\n      }\n    },\n    _type == \"callToAction\" => {\n      title,\n      content,\n      button{\n        text,\n        \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n    }\n  },\n  seo{\n    metaDescription,\n    ogImage{\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n}": HomePageQueryResult;
+    "*[_type == \"homePage\"][0]{\n  _id,\n  title,\n  hero{\n    headline,\n    subtitle,\n    image{\n      asset->{\n        _id,\n        url\n      },\n      alt,\n      hotspot\n    },\n    logo{\n      asset->{\n        _id,\n        url\n      },\n      alt,\n      hotspot\n    }\n  },\n  pageBuilder[]{\n    _type,\n    _key,\n    _type == \"infoSection\" => {\n      title,\n      content,\n      image{\n        asset->{\n          _id,\n          url\n        },\n        alt,\n        hotspot\n      }\n    },\n    _type == \"callToAction\" => {\n      title,\n      content,\n      button{\n        text,\n        \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n    }\n  },\n  seo{\n    metaDescription,\n    ogImage{\n      asset->{\n        _id,\n        url\n      }\n    }\n  }\n}": HomePageQueryResult;
     "\n  *[_type == 'page' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"page\" || _type == \"post\" && defined(slug.current)] | order(_type asc) {\n    \"slug\": slug.current,\n    _type,\n    _updatedAt,\n  }\n": SitemapDataResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
@@ -881,5 +885,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->slug.current,\n    \"post\": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PostPagesSlugsResult;
     "\n  *[_type == \"page\" && defined(slug.current)]\n  {\"slug\": slug.current}\n": PagesSlugsResult;
+    "*[_type == \"navigation\" && _id == \"navigation\"][0]{\n  _id,\n  title,\n  items[]{\n    _key,\n    label,\n    visible,\n    link{\n      _type,\n      linkType,\n      href,\n      openInNewTab,\n      \"page\": page->slug.current,\n      \"post\": post->slug.current\n    },\n    submenu[]{\n      _key,\n      label,\n      visible,\n      link{\n        _type,\n        linkType,\n        href,\n        openInNewTab,\n        \"page\": page->slug.current,\n        \"post\": post->slug.current\n      }\n    }\n  }\n}": NavigationQueryResult;
   }
 }

@@ -62,7 +62,7 @@ export default function Header({ navigation }: HeaderProps) {
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
-      <div className={styles.container}>
+      {/* <div className={styles.container}>
         <div className={styles.inner}>
           <div className={styles.logo}>
             <Link href="/">
@@ -89,7 +89,7 @@ export default function Header({ navigation }: HeaderProps) {
             </ul>
           </nav>
         </div>
-      </div>
+      </div> */}
     </header>
   );
 }
