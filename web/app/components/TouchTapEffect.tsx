@@ -11,6 +11,8 @@ export default function TouchTapEffect() {
 
     const cursorUrl = '/cursors/custom-cursor.svg';
 
+    let persistentEl: HTMLDivElement | null = null;
+
     function handleTouchStart(e: TouchEvent) {
       for (let i = 0; i < e.changedTouches.length; i++) {
         const t = e.changedTouches[i];
@@ -19,24 +21,27 @@ export default function TouchTapEffect() {
     }
 
     function showTapAt(x: number, y: number) {
-      const el = document.createElement('div');
-      el.className = 'tap-cursor';
-      el.style.left = x + 'px';
-      el.style.top = y + 'px';
-      el.style.backgroundImage = `url(${cursorUrl})`;
-      document.body.appendChild(el);
-      // Force reflow then add visible class to trigger CSS animation
-      requestAnimationFrame(() => el.classList.add('tap-cursor--visible'));
-      setTimeout(() => {
-        el.classList.remove('tap-cursor--visible');
-        // remove after animation
-        setTimeout(() => el.remove(), 300);
-      }, 300);
+      if (!persistentEl) {
+        persistentEl = document.createElement('div');
+        persistentEl.className = 'tap-cursor';
+        persistentEl.style.backgroundImage = `url(${cursorUrl})`;
+        document.body.appendChild(persistentEl);
+        // Force reflow then show
+        requestAnimationFrame(() => persistentEl && persistentEl.classList.add('tap-cursor--visible'));
+      }
+      if (persistentEl) {
+        persistentEl.style.left = x + 'px';
+        persistentEl.style.top = y + 'px';
+      }
     }
 
     document.addEventListener('touchstart', handleTouchStart, { passive: true });
     return () => {
       document.removeEventListener('touchstart', handleTouchStart);
+      if (persistentEl && persistentEl.parentNode) {
+        persistentEl.parentNode.removeChild(persistentEl);
+        persistentEl = null;
+      }
     };
   }, []);
 

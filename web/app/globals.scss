@@ -86,16 +86,16 @@ a:focus {
 /* Tap cursor element (mobile): positioned at touch point, fades out */
 .tap-cursor {
   position: fixed;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  transform: translate(-50%, -50%) scale(0.85);
+  transform: translate(-50%, -50%) scale(1);
   opacity: 0;
   pointer-events: none;
   z-index: 9999;
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition: opacity 200ms ease;
 }
 .tap-cursor--visible {
   opacity: 1;

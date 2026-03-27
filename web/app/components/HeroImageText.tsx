@@ -47,7 +47,7 @@ export default function HeroImageText({
     const id = setInterval(() => {
       if (!mounted.current) return;
       setCurrentIndex((i) => (i + 1) % images.length);
-    }, 1000);
+    }, 2000);
     return () => {
       mounted.current = false;
       clearInterval(id);
