@@ -54,24 +54,6 @@
 }
 }
 
-.letters {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--color-white, #fff);
-  font-family: serif;
-  width: 100%;
-  max-width: 1400px;
-}
-
-.letter {
-  display: inline-block;
-  margin: 0 1.5rem;
-  font-size: clamp(48px, 8vw, 140px);
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
-}
 
 .footerLeft {
   @include footer;
@@ -96,7 +78,6 @@
   right: 15px;
   z-index: 20;
   }
-
   @include breakpoint(medium) {
     right: 40px;
   }
@@ -108,22 +89,42 @@
   color: inherit;
   text-decoration: none;
   pointer-events: auto;
-  display: block; /* fill the container so hit area is larger */
-  padding: 14px 20px; /* larger default hit area */
-  border-radius: 6px;
-  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
-  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
-/* Bigger hit area on desktop */
+/* Use custom cursor only for the left footer link */
+.footerLeft a {
+  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+}
+
+/* Invisible expand area for the left footer link: increases clickable area
+   without changing the SVG visual size */
+.footerLeft a {
+  position: relative;
+}
+
+.footerLeft a::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -8px;
+  right: -8px;
+  bottom: -20px;
+  pointer-events: auto;
+  background: transparent;
+}
+
 @include breakpoint(medium) {
-  .footerLeft a,
-  .footerRight a {
-    padding: 18px 28px;
+  .footerLeft a::after {
+    top: -8px;
+    left: -10px;
+    right: -10px;
+    bottom: -24px;
   }
 }
 
 .footerLeft a:hover,
 .footerRight a:hover {
   text-decoration: none;
+  opacity: 0.5;
 }
