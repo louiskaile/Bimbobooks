@@ -76,6 +76,7 @@
   bottom: 30px;
   left: 15px;
   z-index: 20;
+  
   }
 
   @include breakpoint(medium) {
@@ -91,7 +92,7 @@
   right: 15px;
   z-index: 20;
   }
-  
+
   @include breakpoint(medium) {
     right: 40px;
   }
