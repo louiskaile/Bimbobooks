@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles/module/hero.module.scss";
 
 type Props = {
-  image?: string;
+  image?: string | string[];
   letters?: string;
   email?: string;
   logo?: string | null;
@@ -36,11 +36,31 @@ export default function HeroImageText({
     return () => mq.removeEventListener?.('change', update);
   }, []);
 
+  // Background slideshow support when `image` is an array
+  const images = Array.isArray(image) ? image : [String(image)];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    if (images.length <= 1) return;
+    const id = setInterval(() => {
+      if (!mounted.current) return;
+      setCurrentIndex((i) => (i + 1) % images.length);
+    }, 1000);
+    return () => {
+      mounted.current = false;
+      clearInterval(id);
+    };
+  }, [images.length]);
+
+  const currentImage = images[currentIndex] || "/images/hero.jpg";
+
   return (
     <section className={styles.root}>
       <div
         className={styles.bg}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${currentImage})` }}
       />
 
       <div className={styles.overlay} />

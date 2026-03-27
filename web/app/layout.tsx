@@ -7,6 +7,7 @@ import { VisualEditing, toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
 import BodyClassUpdater from "@/app/components/BodyClassUpdater";
 import SiteCredit from "@/app/components/SiteCredit";
+import TouchTapEffect from "@/app/components/TouchTapEffect";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
 import Footer from "@/app/components/Footer";
@@ -86,6 +87,7 @@ export default async function RootLayout({
           </main>
           {/* <Footer /> */}
         </section>
+        <TouchTapEffect />
         <SpeedInsights />
       </body>
     </html>

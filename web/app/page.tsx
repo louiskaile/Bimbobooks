@@ -16,12 +16,24 @@ export default async function Page() {
   let heroImage: string = "/images/hero.jpg";
   let heroLogo: string | null = null;
   let heroMobileLogo: string | null = null;
+  let heroImages: string[] | null = null;
 
   if (homePage?.hero) {
     if (typeof homePage.hero.image === "string") {
       heroImage = homePage.hero.image;
     } else if (homePage.hero.image && (homePage.hero.image as any).asset) {
       heroImage = (homePage.hero.image as any).asset.url || heroImage;
+    }
+
+    // images array support (slideshow)
+    const imagesField = (homePage.hero as any).images;
+    if (Array.isArray(imagesField) && imagesField.length > 0) {
+      heroImages = imagesField
+        .map((img: any) => {
+          if (typeof img === 'string') return img;
+          return img?.asset?.url || null;
+        })
+        .filter(Boolean) as string[];
     }
 
     if (typeof homePage.hero.logo === "string") {
@@ -56,11 +68,11 @@ export default async function Page() {
       {/* Hero Section */}
       {homePage?.hero && (
         <HeroImageText
-          image={heroImage}
+          image={heroImages && heroImages.length ? heroImages : heroImage}
           letters={heroLetters}
           email={heroEmail}
           logo={heroLogo}
-          mobileLogo={typeof heroMobileLogo !== 'undefined' ? heroMobileLogo : null}
+          mobileLogo={heroMobileLogo}
         />
       )}
 

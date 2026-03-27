@@ -64,3 +64,40 @@ html, body {
 input, textarea, [contenteditable="true"], select {
   cursor: text;
 }
+
+/* Ensure interactive elements also show the custom cursor */
+a, button, input[type="button"], input[type="submit"], label {
+  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+}
+
+/* Global: remove underline from links while preserving other focus styles */
+a {
+  text-decoration: none;
+  transition: opacity 160ms ease, color 160ms ease;
+}
+
+/* Hover / focus: slightly reduce opacity for a subtle hover effect */
+a:hover,
+a:focus {
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+/* Tap cursor element (mobile): positioned at touch point, fades out */
+.tap-cursor {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  transform: translate(-50%, -50%) scale(0.85);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.tap-cursor--visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}

@@ -30,6 +30,7 @@ export default defineType({
           rows: 3
         },
         */
+        /*
         {
           name: 'image',
           title: 'Hero Image',
@@ -38,7 +39,19 @@ export default defineType({
             hotspot: true
           }
         }
-        ,
+        */
+        {
+          name: 'images',
+          title: 'Hero Images (Slideshow)',
+          type: 'array',
+          of: [
+            {
+              type: 'image',
+              options: { hotspot: true }
+            }
+          ],
+          description: 'Optional set of images to cycle through in the hero (useful for slideshows)'
+        },
         {
           name: 'logo',
           title: 'Logo (Desktop)',

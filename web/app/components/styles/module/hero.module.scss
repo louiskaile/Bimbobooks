@@ -19,7 +19,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  // background-color: rgba(0, 0, 0, 0.2);
   pointer-events: none;
 }
 
@@ -48,6 +48,10 @@
   height: auto;
   object-fit: contain;
   max-height: 72vh;
+
+  @include breakpoint(medium) {
+    padding-bottom: 20px;
+}
 }
 
 .letters {
@@ -76,7 +80,7 @@
   bottom: 30px;
   left: 15px;
   z-index: 20;
-  
+
   }
 
   @include breakpoint(medium) {
@@ -104,10 +108,22 @@
   color: inherit;
   text-decoration: none;
   pointer-events: auto;
-  cursor: pointer;
+  display: block; /* fill the container so hit area is larger */
+  padding: 14px 20px; /* larger default hit area */
+  border-radius: 6px;
+  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Bigger hit area on desktop */
+@include breakpoint(medium) {
+  .footerLeft a,
+  .footerRight a {
+    padding: 18px 28px;
+  }
 }
 
 .footerLeft a:hover,
 .footerRight a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
