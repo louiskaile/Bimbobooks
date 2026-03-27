@@ -1,0 +1,39 @@
+// Colors
+$color--primary: #000000;
+$color--secondary: var(--50-black, #808080);
+
+// $color--grey: #787878;
+$color--gold: #000000;
+$color--white: #ffffff;
+$color--bg: rgb(234, 224, 213);
+
+// Fonts
+// $font--primary: var(--font-lelo-regular, "Lelo Regular"), sans-serif;
+$font--primary: 'Styrene B', Courier, monospace;
+$font--secondary: 'Gestura Text Light', serif;
+
+// Layout
+$max-width: 100%;
+$content-width: 100%;
+$content-width--narrow: 800px;
+
+//Grid
+$grid--mobile: 8;
+$grid--desktop: 16;
+
+// Spacing
+$gutter-width--mobile: 15px;
+$gutter-width--desktop: 20px;
+
+$component-padding--mobile: 55px;
+$component-padding--desktop: 10px;
+
+// Animation
+$transition: 1s all ease;
+$transition-fast: 0.5s all ease;
+
+// Z-index layers
+$z-index-header: 100;
+$z-index-modal: 200;
+
+$border: 1px solid var(--line-color, $color--primary);

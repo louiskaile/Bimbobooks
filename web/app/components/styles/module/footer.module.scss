@@ -1,0 +1,20 @@
+@use "../shared" as *;
+
+.footer {
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 100px 0;
+  flex-shrink: 0;
+  transition: $transition;
+
+  .container {
+    @include inner;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  }
+}

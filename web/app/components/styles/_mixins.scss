@@ -1,0 +1,95 @@
+@use "variables" as *;
+
+/*********************
+BREAKPOINTS
+*********************/
+
+@mixin breakpoint($point) {
+  @if $point == xlarge {
+    @media (min-width: 2000px) {
+      @content;
+    }
+  } @else if $point == large {
+    @media (min-width: 1240px) {
+      @content;
+    }
+  } @else if $point == medium {
+    @media (min-width: 900px) {
+      @content;
+    }
+  }
+}
+
+// @mixin breakpointdown($point) {
+//   @if $point == large {
+//      @media (max-width: 1241px) { @content; }
+//   }
+//   @else if $point == medium {
+//      @media (max-width: 901px) { @content; }
+//   }
+// }
+
+/*********************
+LAYOUT
+*********************/
+
+@mixin inner() {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 $gutter-width--mobile;
+  @include breakpoint(medium) {
+    padding: 0 $gutter-width--desktop;
+  }
+}
+
+@mixin grid() {
+  display: grid;
+  grid-template-columns: repeat($grid--mobile, 1fr);
+  gap: 15px $gutter-width--mobile;
+  margin-left: $gutter-width--mobile;
+  margin-right: $gutter-width--mobile;
+
+  @include breakpoint(medium) {
+    grid-template-columns: repeat($grid--desktop, 1fr);
+    gap: 20px $gutter-width--desktop;
+    margin-left: $gutter-width--desktop;
+    margin-right: $gutter-width--desktop;
+  }
+}
+
+@mixin component() {
+  padding: $component-padding--mobile 0 0 0;
+  @include breakpoint(medium) {
+    padding: $component-padding--desktop 0;
+  }
+}
+
+/*********************
+TYPOGRAPHY
+*********************/
+
+@mixin navigation {
+  // font-family: "CosmicaExtrabold", sans-serif;
+  font-style: normal;
+  font-weight: 500; // Changed from 600 to 500
+  font-size: 15px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #000;
+
+  @include breakpoint(medium) {
+    //
+  }
+}
+
+@mixin paragraph {
+  // font-family: "ImmortelInfraG1TrialRoman", sans-serif; // Changed from 'Immortel Infra G1 Trial'
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  @include breakpoint(medium) {
+    //
+  }
+}

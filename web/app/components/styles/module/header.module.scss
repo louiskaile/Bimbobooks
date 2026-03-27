@@ -1,0 +1,30 @@
+@use "../shared" as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: $transition;
+
+   &.scrolled {
+      //
+    }
+
+  .container {
+    @include inner;
+  }
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .logo {
+    svg {
+      max-width: 250px;
+    }
+  }
+
+}

@@ -1,0 +1,217 @@
+@use "./shared" as *;
+
+:root {
+  --background: #f5efe5;
+  --foreground: #f5efe5;
+}
+
+html,
+body {
+  max-width: 100vw;
+  // overflow-x: hidden;
+  // background: var(--background);
+  // background: #EAE0D5;
+  background: var(--bg-color, #f5efe5);
+}
+
+body {
+  color: black;
+  // background: var(--background);
+  // background: #EAE0D5;
+  background: var(--bg-color, #f5efe5);
+  font-family: var(--font-lelo-regular, "And Suisse"), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  // overflow-x: hidden;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+// h1, h2, h3, h4, h5, h6 {
+//   font-family: var(--font-lelo, 'And Suisse'), sans-serif;
+// }
+
+footer {
+  margin-top: auto;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+strong {
+  color: var(--text-color, $color--primary);
+  font-family: var(--font-lelo-regular, "Lelo Regular"), sans-serif;
+  font-weight: bold;
+}
+
+.aspect-landscape {
+  aspect-ratio: 3 / 2;
+  height: auto;
+  position: relative;
+
+  // height: 100%;
+}
+
+.aspect-portrait {
+  aspect-ratio: 3 / 4;
+  height: auto;
+  position: relative;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+.logo-container {
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: calc(100% - 60px);
+  position: absolute;
+  left: 30px;
+  top: 0;
+  // height: 70dvh;
+
+  @media (max-width: 899px) and (orientation: portrait) {
+    margin-top: 18px;
+    left: 20px;
+    height: 60vh;
+    height: 60dvh;
+    width: calc(85% - 45px);
+  }
+
+  @media (min-width: 900px) {
+    height: 100%;
+    height: 100dvh;
+  }
+
+  svg {
+    width: 590px;
+    height: auto;
+  }
+}
+
+.video-fullbleed-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #79634c;
+  z-index: 1;
+}
+
+.video-embed-object-fit-cover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  container-type: size;
+  overflow: hidden;
+  background-color: #79634c; // Changed from #79634c to match your component
+  opacity: 0;
+  transition: 0.5s opacity ease; // Changed from 1s all ease
+
+  &.loaded {
+    opacity: 1;
+    transition: 0.5s opacity ease; // Changed from 1s all ease
+  }
+}
+
+.video-embed-object-fit-cover iframe {
+  will-change: opacity;
+  opacity: 0; // Make sure iframe starts invisible
+  transition: 0.5s opacity ease; // Changed from 1s all ease
+}
+
+.video-embed-object-fit-cover.loaded iframe {
+  opacity: 1;
+}
+
+.video-embed-object-fit-cover > iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  /* force aspect ratio based on parent container */
+  @container (min-aspect-ratio: 16/9) {
+    height: 56.25cqw; /* 100*9/16 */
+  }
+
+  @container (max-aspect-ratio: 16/9) {
+    width: 177.78cqh; /* 100*16/9 */
+  }
+}
+
+/* SimpleBar Custom Scrollbar Styling */
+.simplebar-scrollbar::before {
+  background-color: var(--scroll-color, $color--primary) !important;
+  width: 100%;
+  left: 0 !important;
+}
+
+.simplebar-track {
+  background-color: var(--scroll-track, $color--primary) !important;
+}
+
+.simplebar-scrollbar:hover::before {
+  background-color: #c17114 !important; /* Orange on hover */
+}
+
+/* Make scrollbar always visible */
+.simplebar-scrollbar.simplebar-visible::before {
+  opacity: 1 !important;
+}
+/* Set width of scrollbar */
+.simplebar-track.simplebar-vertical {
+  // width: 10px !important;
+}
+
+.simplebar-track {
+  right: -20px !important;
+}
+
+.contact-page {
+  main {
+    padding: 0; // Remove default padding for contact page
+    
+    @media (min-width: 768px) {
+      overflow: hidden;
+      height: 100vh;
+      height: 100dvh;
+    }
+  }
+}
