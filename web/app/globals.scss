@@ -54,3 +54,13 @@ main {
   min-height: 100vh;
   flex-direction: column;
 }
+
+/* Custom cursor: use file in public/cursors for better browser support */
+html, body {
+  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+}
+
+/* Use default text cursor for editable text inputs */
+input, textarea, [contenteditable="true"], select {
+  cursor: text;
+}

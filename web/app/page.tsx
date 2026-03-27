@@ -15,6 +15,7 @@ export default async function Page() {
 
   let heroImage: string = "/images/hero.jpg";
   let heroLogo: string | null = null;
+  let heroMobileLogo: string | null = null;
 
   if (homePage?.hero) {
     if (typeof homePage.hero.image === "string") {
@@ -27,6 +28,12 @@ export default async function Page() {
       heroLogo = homePage.hero.logo;
     } else if (homePage.hero.logo && (homePage.hero.logo as any).asset) {
       heroLogo = (homePage.hero.logo as any).asset.url || null;
+    }
+    // mobileLogo support
+    if (typeof homePage.hero.mobileLogo === "string") {
+      heroMobileLogo = homePage.hero.mobileLogo;
+    } else if (homePage.hero.mobileLogo && (homePage.hero.mobileLogo as any).asset) {
+      heroMobileLogo = (homePage.hero.mobileLogo as any).asset.url || null;
     }
   }
 
@@ -53,6 +60,7 @@ export default async function Page() {
           letters={heroLetters}
           email={heroEmail}
           logo={heroLogo}
+          mobileLogo={typeof heroMobileLogo !== 'undefined' ? heroMobileLogo : null}
         />
       )}
 

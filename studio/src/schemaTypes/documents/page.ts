@@ -40,6 +40,7 @@ export const page = defineType({
       title: 'Subheading',
       type: 'string',
     }),
+    /*
     defineField({
       name: 'pageBuilder',
       title: 'Page builder',
@@ -58,5 +59,6 @@ export const page = defineType({
         },
       },
     }),
+    */
   ],
 })

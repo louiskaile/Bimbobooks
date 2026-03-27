@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles/module/hero.module.scss";
 
 type Props = {
@@ -8,6 +8,7 @@ type Props = {
   letters?: string;
   email?: string;
   logo?: string | null;
+  mobileLogo?: string | null;
 };
 
 export default function HeroImageText({
@@ -15,6 +16,7 @@ export default function HeroImageText({
   letters = "BIMBO",
   email = "info@bimbobooks.com",
   logo = null,
+  mobileLogo = null,
 }: Props) {
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -22,6 +24,16 @@ export default function HeroImageText({
     return () => {
       document.body.style.overflow = prev || "";
     };
+  }, []);
+
+  // Fallback: choose mobileLogo on small viewports if available
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 899px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener?.('change', update);
+    return () => mq.removeEventListener?.('change', update);
   }, []);
 
   return (
@@ -36,7 +48,11 @@ export default function HeroImageText({
       <div className={styles.content}>
         <div className={styles.inner}>
           {logo ? (
-            <img src={logo} alt="Site logo" className={styles.logoImg} />
+            <img
+              src={isMobile && mobileLogo ? mobileLogo : logo}
+              alt="Site logo"
+              className={styles.logoImg}
+            />
           ) : (
             <div className={styles.letters}>
               {letters.split("").map((char, i) => (
@@ -49,7 +65,9 @@ export default function HeroImageText({
         </div>
       </div>
 
-      <div className={styles.footerLeft}>{email}</div>
+      <div className={styles.footerLeft}>
+        <a href={`mailto:${email}`}>{email}</a>
+      </div>
 
       <div className={styles.footerRight}>© BIMBO BOOKS 2026</div>
     </section>

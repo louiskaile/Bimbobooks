@@ -64,32 +64,25 @@ LAYOUT
   }
 }
 
+// Responsive padding mixin
+// Mobile: 45px top/bottom, 15px left/right
+// Desktop (medium and up): 30px top/bottom, 40px left/right
+@mixin padding() {
+  padding: 45px 15px;
+  @include breakpoint(medium) {
+    padding: 30px 40px;
+  }
+}
+
 /*********************
 TYPOGRAPHY
 *********************/
 
-@mixin navigation {
-  // font-family: "CosmicaExtrabold", sans-serif;
-  font-style: normal;
-  font-weight: 500; // Changed from 600 to 500
-  font-size: 15px;
-  line-height: 20px;
-  text-transform: uppercase;
-  color: #000;
-
-  @include breakpoint(medium) {
-    //
-  }
-}
-
-@mixin paragraph {
-  // font-family: "ImmortelInfraG1TrialRoman", sans-serif; // Changed from 'Immortel Infra G1 Trial'
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-
-  @include breakpoint(medium) {
-    //
-  }
+@mixin footer {
+font-family: 'ABC Diatype Edu';
+font-style: normal;
+font-weight: 400;
+font-size: 12.6897px;
+line-height: 16px;
+color: #FFFFFF;
 }

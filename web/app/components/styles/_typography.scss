@@ -1,25 +1,9 @@
-// @font-face {
-//   font-family: "CosmicaExtrabold";
-//   src: url("../fonts/CosmicaExtrabold.eot");
-//   src:
-//     url("../fonts/CosmicaExtrabold.eot") format("embedded-opentype"),
-//     url("../fonts/CosmicaExtrabold.woff2") format("woff2"),
-//     url("../fonts/CosmicaExtrabold.woff") format("woff"),
-//     url("../fonts/CosmicaExtrabold.ttf") format("truetype");
-//   font-weight: normal;
-//   font-style: normal;
-//   font-display: swap;
-// }
-
-// @font-face {
-//   font-family: "ImmortelInfraG1TrialRoman";
-//   src: url("../fonts/ImmortelInfraG1TrialRoman.eot");
-//   src:
-//     url("../fonts/ImmortelInfraG1TrialRoman.eot") format("embedded-opentype"),
-//     url("../fonts/ImmortelInfraG1TrialRoman.woff2") format("woff2"),
-//     url("../fonts/ImmortelInfraG1TrialRoman.woff") format("woff"),
-//     url("../fonts/ImmortelInfraG1TrialRoman.ttf") format("truetype");
-//   font-weight: normal;
-//   font-style: normal;
-//   font-display: swap;
-// }
+@font-face {
+    font-family: 'ABCDiatypeRegular';
+        src: url('/ABCDiatypeRegular.eot');
+        src: url('/ABCDiatypeRegular.eot') format('embedded-opentype'),
+            url('/ABCDiatypeRegular.woff2') format('woff2'),
+            url('/ABCDiatypeRegular.woff') format('woff'),
+            url('/ABCDiatypeRegular.ttf') format('truetype'),
+            url('/ABCDiatypeRegular.svg#ABCDiatypeRegular') format('svg');
+}

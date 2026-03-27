@@ -41,6 +41,14 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
       },
       alt,
       hotspot
+    },
+    mobileLogo{
+      asset->{
+        _id,
+        url
+      },
+      alt,
+      hotspot
     }
   },
   pageBuilder[]{

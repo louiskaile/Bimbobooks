@@ -17,6 +17,7 @@ export default defineType({
       title: 'Hero Section',
       type: 'object',
       fields: [
+        /*
         {
           name: 'headline',
           title: 'Headline',
@@ -28,6 +29,7 @@ export default defineType({
           type: 'text',
           rows: 3
         },
+        */
         {
           name: 'image',
           title: 'Hero Image',
@@ -39,15 +41,25 @@ export default defineType({
         ,
         {
           name: 'logo',
-          title: 'Logo',
+          title: 'Logo (Desktop)',
           type: 'image',
           description: 'Optional logo to show in the hero instead of text',
+          options: {
+            hotspot: true
+          }
+        },
+        {
+          name: 'mobileLogo',
+          title: 'Logo (Mobile)',
+          type: 'image',
+          description: 'Optional separate logo for mobile screens (under 900px)',
           options: {
             hotspot: true
           }
         }
       ]
     },
+    /*
     {
       name: 'pageBuilder',
       title: 'Page Builder',
@@ -57,6 +69,7 @@ export default defineType({
         { type: 'callToAction' }
       ]
     },
+    */
     {
       name: 'seo',
       title: 'SEO',
