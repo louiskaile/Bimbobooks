@@ -3,8 +3,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./styles/module/hero.module.scss";
 
+type Slide = { desktop: string; mobile?: string };
+
 type Props = {
-  image?: string | string[];
+  // image can be a single string (desktop-only) or an array of strings or slide objects
+  image?: string | string[] | Array<string | Slide>;
   letters?: string;
   email?: string;
   logo?: string | null;
@@ -36,32 +39,91 @@ export default function HeroImageText({
     return () => mq.removeEventListener?.('change', update);
   }, []);
 
-  // Background slideshow support when `image` is an array
-  const images = Array.isArray(image) ? image : [String(image)];
+  // Background slideshow support when `image` is an array. Normalize to array of slides.
+  const slides: Slide[] = Array.isArray(image)
+    ? (image as Array<string | Slide>).map((it) => {
+        if (!it) return { desktop: "/images/hero.jpg" };
+        if (typeof it === "string") return { desktop: it };
+        return { desktop: (it as Slide).desktop || (it as any).image || "/images/hero.jpg", mobile: (it as Slide).mobile };
+      })
+    : [{ desktop: String(image) }];
   const [currentIndex, setCurrentIndex] = useState(0);
   const mounted = useRef(true);
 
+  // For crossfade: track which DOM layer is visible and the background images for both
+  const [showA, setShowA] = useState(true);
+  const [layerA, setLayerA] = useState<string>(slides[0]?.desktop || "/images/hero.jpg");
+  const [layerB, setLayerB] = useState<string>("");
+
   useEffect(() => {
     mounted.current = true;
-    if (images.length <= 1) return;
+    if (slides.length <= 1) {
+      // ensure initial layer set
+      setLayerA(slides[0]?.desktop || "/images/hero.jpg");
+      return;
+    }
+
     const id = setInterval(() => {
       if (!mounted.current) return;
-      setCurrentIndex((i) => (i + 1) % images.length);
+      const next = (currentIndex + 1) % slides.length;
+
+      // choose image URL for next slide considering mobile
+      const nextSlide = slides[next] || { desktop: "/images/hero.jpg" };
+      const nextUrl = isMobile && nextSlide.mobile ? nextSlide.mobile : nextSlide.desktop || "/images/hero.jpg";
+
+      // preload next image then swap layers to avoid white flash
+      const img = new Image();
+      img.src = nextUrl;
+      img.onload = () => {
+        if (!mounted.current) return;
+        if (showA) {
+          setLayerB(nextUrl);
+        } else {
+          setLayerA(nextUrl);
+        }
+        // toggle visible layer to crossfade
+        setShowA((s) => !s);
+        setCurrentIndex(next);
+      };
+      img.onerror = () => {
+        // still advance index even if preload fails
+        setCurrentIndex(next);
+      };
     }, 2000);
+
     return () => {
       mounted.current = false;
       clearInterval(id);
     };
-  }, [images.length]);
+  }, [slides.length, currentIndex, isMobile, showA]);
 
-  const currentImage = images[currentIndex] || "/images/hero.jpg";
+  // currentImage for single-image fallback
+  const currentSlide = slides[currentIndex] || { desktop: "/images/hero.jpg" };
+  const currentImage = isMobile && currentSlide.mobile ? currentSlide.mobile : currentSlide.desktop || "/images/hero.jpg";
+
+  // ensure initial layers reflect mobile/desktop choice when breakpoint or slides change
+  useEffect(() => {
+    const first = slides[0] || { desktop: "/images/hero.jpg" };
+    const firstUrl = isMobile && first.mobile ? first.mobile : first.desktop || "/images/hero.jpg";
+    setLayerA(firstUrl);
+    setLayerB("");
+    setShowA(true);
+    setCurrentIndex(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile, slides.length]);
 
   return (
     <section className={styles.root}>
-      <div
-        className={styles.bg}
-        style={{ backgroundImage: `url(${currentImage})` }}
-      />
+      <div className={styles.bg}>
+        <div
+          className={`${styles.layer} ${showA ? styles.show : ""}`}
+          style={{ backgroundImage: `url(${layerA || currentImage})` }}
+        />
+        <div
+          className={`${styles.layer} ${!showA ? styles.show : ""}`}
+          style={{ backgroundImage: `url(${layerB || currentImage})` }}
+        />
+      </div>
 
       <div className={styles.overlay} />
 

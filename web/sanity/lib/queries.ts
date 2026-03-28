@@ -35,12 +35,9 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
       hotspot
     },
     images[]{
-      asset->{
-        _id,
-        url
-      },
-      alt,
-      hotspot
+      // new slide object: { image, mobileImage }
+      image{ asset->{ _id, url }, alt, hotspot },
+      mobileImage{ asset->{ _id, url }, alt, hotspot }
     },
     logo{
       asset->{

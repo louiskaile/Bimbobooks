@@ -46,11 +46,25 @@ export default defineType({
           type: 'array',
           of: [
             {
-              type: 'image',
-              options: { hotspot: true }
+              type: 'object',
+              fields: [
+                {
+                  name: 'image',
+                  title: 'Desktop Image',
+                  type: 'image',
+                  options: { hotspot: true }
+                },
+                {
+                  name: 'mobileImage',
+                  title: 'Mobile Image',
+                  type: 'image',
+                  description: 'Optional smaller / cropped image for mobile screens (under 900px)',
+                  options: { hotspot: true }
+                }
+              ]
             }
           ],
-          description: 'Optional set of images to cycle through in the hero (useful for slideshows)'
+          description: 'Optional set of images to cycle through in the hero (supports a separate mobile image per slide)'
         },
         {
           name: 'logo',

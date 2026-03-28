@@ -12,8 +12,27 @@
 .bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  background-color: #000; // fallback while images load
+  overflow: hidden;
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 600ms ease-in-out;
+    opacity: 0;
+    will-change: opacity, background-image;
+    backface-visibility: hidden;
+  }
+
+  .show {
+    /* used alongside .layer to reveal that layer */
+  }
+
+  .layer.show {
+    opacity: 1;
+  }
 }
 
 .overlay {

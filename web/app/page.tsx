@@ -16,7 +16,8 @@ export default async function Page() {
   let heroImage: string = "/images/hero.jpg";
   let heroLogo: string | null = null;
   let heroMobileLogo: string | null = null;
-  let heroImages: string[] | null = null;
+  // heroImages will be an array of slide objects: { desktop: string, mobile?: string }
+  let heroImages: Array<{ desktop: string; mobile?: string }>| null = null;
 
   if (homePage?.hero) {
     if (typeof homePage.hero.image === "string") {
@@ -25,15 +26,26 @@ export default async function Page() {
       heroImage = (homePage.hero.image as any).asset.url || heroImage;
     }
 
-    // images array support (slideshow)
+    // images array support (slideshow) - support new object shape with desktop/mobile per slide
     const imagesField = (homePage.hero as any).images;
     if (Array.isArray(imagesField) && imagesField.length > 0) {
       heroImages = imagesField
         .map((img: any) => {
-          if (typeof img === 'string') return img;
-          return img?.asset?.url || null;
+          if (!img) return null;
+
+          // legacy simple image object (Sanity image)
+          if (img.asset || img._type === 'image') {
+            const url = img?.asset?.url || img;
+            return { desktop: url };
+          }
+
+          // new object shape: { image: <image>, mobileImage: <image> }
+          const desktop = img?.image?.asset?.url || img?.image || null;
+          const mobile = img?.mobileImage?.asset?.url || img?.mobileImage || null;
+          if (!desktop && !mobile) return null;
+          return { desktop: desktop || mobile, mobile: mobile || undefined };
         })
-        .filter(Boolean) as string[];
+        .filter(Boolean) as Array<{ desktop: string; mobile?: string }>;
     }
 
     if (typeof homePage.hero.logo === "string") {
