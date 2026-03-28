@@ -1,5 +1,5 @@
-# Sanity-Next-StudioSmall-Boilerplate
-Sanity + Next.js – StudioSmall Project Starter Boilerplate
+# Sanity-Next Boilerplate
+Sanity + Next.js project starter boilerplate
 
 
 Based off:

@@ -6,7 +6,7 @@ import { draftMode } from "next/headers";
 import { VisualEditing, toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
 import BodyClassUpdater from "@/app/components/BodyClassUpdater";
-import SiteCredit from "@/app/components/SiteCredit";
+// Site credit removed
 import TouchTapEffect from "@/app/components/TouchTapEffect";
 
 import DraftModeToast from "@/app/components/DraftModeToast";
@@ -51,6 +51,10 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       images: ogImage ? [ogImage] : [],
     },
+    icons: {
+      icon: '/favicon.svg',
+      shortcut: '/favicon.svg'
+    }
   };
 }
 
@@ -65,7 +69,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SiteCredit />
         <BodyClassUpdater />
 
         <section className="site-wrapper">
