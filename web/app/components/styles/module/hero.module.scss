@@ -16,13 +16,18 @@
   position: absolute;
   inset: 0;
   background-color: #000; // fallback while images load
+  min-height: 100dvh;
   overflow: hidden;
 
   .layer {
     position: absolute;
     inset: 0;
+    /* ensure the image always fills the viewport including mobile safe-area */
     background-size: cover;
-    background-position: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: calc(100dvh + env(safe-area-inset-bottom));
+    min-height: calc(100dvh + env(safe-area-inset-bottom));
     transition: none;
     opacity: 0;
     will-change: opacity, background-image;
@@ -91,7 +96,7 @@
 
   @include breakpoint(medium) {
     padding-left: 40px;
-      bottom: 0px;
+      bottom: 30px;
   }
 }
 
@@ -107,7 +112,7 @@
   }
   @include breakpoint(medium) {
     padding-right: 40px;
-      bottom: 0px;
+      bottom: 30px;
   }
 }
 
@@ -150,8 +155,8 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 32px;
-  height: 32px;
+  width: 12px;
+  height: 12px;
   background-image: url('/cursors/custom-cursor.svg');
   background-size: contain;
   background-repeat: no-repeat;
@@ -164,7 +169,7 @@
 
 .mobileCursor.active,
 .mobileCursorActive {
-  transform: translate(-50%, -50%) scale(0.5);
+  transform: translate(-50%, -50%) scale(1);
 }
 
 @include breakpoint(medium) {

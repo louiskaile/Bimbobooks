@@ -208,12 +208,7 @@ export default function HeroImageText({
       cursorEl.style.display = 'none';
     };
 
-    const onTouchMove = (ev: TouchEvent) => {
-      const t = ev.touches[0];
-      if (!t) return;
-      showAt(t.clientX, t.clientY);
-    };
-
+    // Show cursor on touchstart only (no dragging follow)
     const onTouchStart = (ev: TouchEvent) => {
       const t = ev.touches[0];
       if (!t) return;
@@ -222,17 +217,14 @@ export default function HeroImageText({
     };
 
     const onTouchEnd = () => {
+      // remove the pressed/shrunken state but keep the cursor visible
       cursorEl.classList.remove(styles.mobileCursorActive);
-      // hide shortly after release
-      setTimeout(hide, 120);
     };
 
-    sectionRef.current.addEventListener('touchmove', onTouchMove, { passive: true });
     sectionRef.current.addEventListener('touchstart', onTouchStart, { passive: true } as AddEventListenerOptions);
     sectionRef.current.addEventListener('touchend', onTouchEnd);
 
     return () => {
-      sectionRef.current?.removeEventListener('touchmove', onTouchMove as any);
       sectionRef.current?.removeEventListener('touchstart', onTouchStart as any);
       sectionRef.current?.removeEventListener('touchend', onTouchEnd as any);
     };
