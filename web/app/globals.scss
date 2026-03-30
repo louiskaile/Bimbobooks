@@ -55,19 +55,22 @@ main {
   flex-direction: column;
 }
 
-/* Custom cursor: use file in public/cursors for better browser support */
-html, body {
-  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
-}
+/* Custom cursor: enable only on desktop (medium+) so mobile uses touch UI
+   and our visible mobile cursor element */
+@include breakpoint(medium) {
+  html, body {
+    cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  }
 
-/* Use default text cursor for editable text inputs */
-input, textarea, [contenteditable="true"], select {
-  cursor: text;
-}
+  /* Use default text cursor for editable text inputs */
+  input, textarea, [contenteditable="true"], select {
+    cursor: text;
+  }
 
-/* Ensure interactive elements also show the custom cursor */
-a, button, input[type="button"], input[type="submit"], label {
-  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  /* Ensure interactive elements also show the custom cursor */
+  a, button, input[type="button"], input[type="submit"], label {
+    cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  }
 }
 
 /* Global: remove underline from links while preserving other focus styles */
