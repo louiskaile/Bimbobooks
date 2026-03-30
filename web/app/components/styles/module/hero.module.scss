@@ -86,7 +86,7 @@
   @include footer;
   &{
  position: absolute;
- bottom: 30px;
+ bottom: 20px;
  left: 0;
  padding-bottom: 8px;
  padding-left: 15px;
@@ -104,7 +104,7 @@
   @include footer;
   &{
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   right: 0;
   padding-bottom: 8px;
   padding-right: 15px;
@@ -125,9 +125,15 @@
   cursor: pointer;
 }
 
-/* Use custom cursor only for the left footer link */
+/* Use custom cursor only for the left footer link on desktop; disable CSS cursor on mobile so our visible mobile cursor is the only one shown */
 .footerLeft a {
-  cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  cursor: none;
+}
+
+@include breakpoint(medium) {
+  .footerLeft a {
+    cursor: url('/cursors/custom-cursor.svg') 16 16, pointer;
+  }
 }
 
 /* Invisible expand area for the left footer link: increases clickable area
@@ -139,15 +145,21 @@
 .footerLeft a::after {
   content: '';
   position: absolute;
-  padding: -6px, -8px, -8px, -20px; /* top, right, bottom, left */
+  /* expand clickable area without affecting visuals */
+  top: -6px;
+  right: -8px;
+  bottom: -8px;
+  left: -20px;
   pointer-events: auto;
   background: transparent;
 }
 
-/* smaller cursor while active (click / touch press) */
-.footerLeft a:active,
-.footerLeft :global(.touch-active) {
-  cursor: url('/cursors/custom-cursor-small.svg') 8 8, pointer;
+/* smaller cursor while active (click / touch press) -- desktop only */
+@include breakpoint(medium) {
+  .footerLeft a:active,
+  .footerLeft :global(.touch-active) {
+    cursor: url('/cursors/custom-cursor-small.svg') 8 8, pointer;
+  }
 }
 
 /* visible mobile cursor: only shown on small screens where native cursor isn't available */
@@ -178,7 +190,11 @@
 
 @include breakpoint(medium) {
   .footerLeft a::after {
-    padding: -8px, -10px, -10px, -24px; 
+    /* larger hit area on desktop */
+    top: -12px;
+    right: -12px;
+    bottom: -12px;
+    left: -30px;
   }
 }
 
