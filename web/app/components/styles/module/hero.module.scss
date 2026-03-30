@@ -20,7 +20,7 @@
     inset: 0;
     background-size: cover;
     background-position: center;
-    transition: opacity 600ms ease-in-out;
+    transition: none;
     opacity: 0;
     will-change: opacity, background-image;
     backface-visibility: hidden;
@@ -38,7 +38,6 @@
 .overlay {
   position: absolute;
   inset: 0;
-  // background-color: rgba(0, 0, 0, 0.2);
   pointer-events: none;
 }
 
@@ -79,14 +78,17 @@
   @include footer;
   &{
  position: absolute;
-  bottom: 30px;
-  left: 15px;
+ bottom: 30px;
+ left: 0;
+ padding-bottom: 30px;
+ padding-left: 15px;
   z-index: 20;
 
   }
 
   @include breakpoint(medium) {
-    left: 40px;
+    padding-left: 40px;
+      bottom: 0px;
   }
 }
 
@@ -95,11 +97,14 @@
   &{
   position: absolute;
   bottom: 30px;
-  right: 15px;
+  right: 0;
+  padding-bottom: 30px;
+  padding-right: 15px;
   z-index: 20;
   }
   @include breakpoint(medium) {
-    right: 40px;
+    padding-right: 40px;
+      bottom: 0px;
   }
 }
 
@@ -126,20 +131,20 @@
 .footerLeft a::after {
   content: '';
   position: absolute;
-  top: -6px;
-  left: -8px;
-  right: -8px;
-  bottom: -20px;
+  padding: -6px, -8px, -8px, -20px; /* top, right, bottom, left */
   pointer-events: auto;
   background: transparent;
 }
 
+/* smaller cursor while active (click / touch press) */
+.footerLeft a:active,
+.footerLeft :global(.touch-active) {
+  cursor: url('/cursors/custom-cursor-small.svg') 8 8, pointer;
+}
+
 @include breakpoint(medium) {
   .footerLeft a::after {
-    top: -8px;
-    left: -10px;
-    right: -10px;
-    bottom: -24px;
+    padding: -8px, -10px, -10px, -24px; 
   }
 }
 
