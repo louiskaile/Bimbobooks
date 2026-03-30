@@ -15,6 +15,6 @@ export default defineCliConfig({
     projectId,
     dataset,
   },
-  studioHost: process.env.SANITY_STUDIO_STUDIO_HOST || 'bimbobooks', // Visit https://www.sanity.io/docs/environment-variables to learn more about using environment variables for local & production.
-  deployment: { autoUpdates: true },
+  studioHost: 'bimbobooks',
+  deployment: { autoUpdates: true, appId: 'uk1192fhc37deedyokvy2ej2' },
 })
