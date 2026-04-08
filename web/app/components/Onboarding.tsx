@@ -107,13 +107,13 @@ export default function Onboarding() {
   );
 }
 
-export function PageOnboarding() {
+export function PageOnboarding({ slug = "about" }: { slug?: string }) {
   return (
     <div className="max-w-2xl mx-auto grid grid-flow-row gap-6 py-12 text-center bg-brand text-white rounded-lg p-8">
       <OnboardingMessage
         message={{
-          title: "About Page (/about) does not exist yet",
-          description: "Get started by creating an about page.",
+          title: `Page (/${slug}) does not exist yet`,
+          description: `Get started by creating a ${slug} page.`,
         }}
         link={{
           title: "Create Page",
