@@ -10,10 +10,10 @@ import {schemaTypes} from './src/schemaTypes'
 import {structure} from './src/structure'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {
-  presentationTool,
-  defineDocuments,
-  defineLocations,
-  type DocumentLocation,
+  // presentationTool,
+  // defineDocuments,
+  // defineLocations,
+  // type DocumentLocation,
 } from 'sanity/presentation'
 import {assist} from '@sanity/assist'
 
@@ -53,7 +53,8 @@ export default defineConfig({
   dataset,
 
   plugins: [
-    // Presentation tool configuration for Visual Editing
+    // Presentation tool configuration for Visual Editing (temporarily disabled)
+    /*
     presentationTool({
       previewUrl: {
         origin: SANITY_STUDIO_PREVIEW_URL,
@@ -119,6 +120,7 @@ export default defineConfig({
         },
       },
     }),
+    */
     structureTool({
       structure, // Custom studio structure configuration, imported from ./src/structure.ts
     }),

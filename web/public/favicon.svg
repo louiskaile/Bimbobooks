@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="100%" height="100%" fill="transparent"/>
-  <circle cx="32" cy="32" r="28" fill="#ff6a00" />
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Bimbo Books">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="56" y="360" font-family="Arial, Helvetica, sans-serif" font-size="320" font-weight="700" fill="#d21111">&lt;B</text>
 </svg>

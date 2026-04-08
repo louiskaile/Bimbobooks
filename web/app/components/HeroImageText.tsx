@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import styles from "./styles/module/hero.module.scss";
 
-type Slide = { desktop: string; mobile?: string };
+type Slide = { desktop: string; mobile?: string; name?: string };
 
 type Props = {
   // image can be a single string (desktop-only) or an array of strings or slide objects
@@ -44,7 +44,12 @@ export default function HeroImageText({
     ? (image as Array<string | Slide>).map((it) => {
         if (!it) return { desktop: "/images/hero.jpg" };
         if (typeof it === "string") return { desktop: it };
-        return { desktop: (it as Slide).desktop || (it as any).image || "/images/hero.jpg", mobile: (it as Slide).mobile };
+        const raw = it as any;
+        return {
+          desktop: (raw.desktop || raw.image) || "/images/hero.jpg",
+          mobile: raw.mobile || raw.mobileImage,
+          name: raw.name || raw.title || undefined,
+        };
       })
     : [{ desktop: String(image) }];
 
@@ -108,8 +113,8 @@ export default function HeroImageText({
     const section = sectionRef.current;
     if (!section) return;
 
-    const THRESHOLD = 120; // px of movement before advancing (reduced for easier triggers)
-    const MIN_INTERVAL = 400; // ms cooldown between advances
+    const THRESHOLD = 80; // px of movement before advancing (lower = more sensitive)
+    const MIN_INTERVAL = 250; // ms cooldown between advances (lower = faster)
 
     const onMouseMove = (e: MouseEvent) => {
       if (isMobileRef.current) return;
@@ -214,15 +219,25 @@ export default function HeroImageText({
       if (!t) return;
       showAt(t.clientX, t.clientY);
       cursorEl.classList.add(styles.mobileCursorActive);
+      // hide native cursor while our custom mobile cursor is visible
+      try {
+        document.documentElement.classList.add('no-native-cursor');
+      } catch (e) {}
     };
 
     const onTouchEnd = () => {
       // remove the pressed/shrunken state but keep the cursor visible
       cursorEl.classList.remove(styles.mobileCursorActive);
+      try {
+        document.documentElement.classList.remove('no-native-cursor');
+      } catch (e) {}
     };
 
     sectionRef.current.addEventListener('touchstart', onTouchStart, { passive: true } as AddEventListenerOptions);
     sectionRef.current.addEventListener('touchend', onTouchEnd);
+
+    // also clear on touchcancel to be safe
+    sectionRef.current.addEventListener('touchcancel', onTouchEnd as any);
 
     return () => {
       sectionRef.current?.removeEventListener('touchstart', onTouchStart as any);
@@ -261,6 +276,9 @@ export default function HeroImageText({
                 </span>
               ))}
             </div>
+          )}
+          {currentSlide.name && (
+            <div className={styles.slideName}>{currentSlide.name}</div>
           )}
         </div>
       </div>

@@ -52,8 +52,11 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ogImage ? [ogImage] : [],
     },
     icons: {
-      icon: '/favicon.svg',
-      shortcut: '/favicon.svg'
+      icon: '/favicon.svg?v=3',
+      shortcut: '/favicon.svg?v=3',
+      other: [
+        { rel: 'icon', url: '/favicon.svg?v=3' },
+      ],
     }
   };
 }

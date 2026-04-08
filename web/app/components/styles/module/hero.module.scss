@@ -69,6 +69,26 @@
   }
 }
 
+.slideName {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: env(safe-area-inset-top, 24px);
+  z-index: 30;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+@include breakpoint(medium) {
+  .slideName {
+    font-size: 16px;
+    top: calc(env(safe-area-inset-top, 24px) + 8px);
+  }
+}
+
 .logoImg {
   width: 100%;
   height: auto;

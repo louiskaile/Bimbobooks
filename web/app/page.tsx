@@ -16,8 +16,8 @@ export default async function Page() {
   let heroImage: string = "/images/hero.jpg";
   let heroLogo: string | null = null;
   let heroMobileLogo: string | null = null;
-  // heroImages will be an array of slide objects: { desktop: string, mobile?: string }
-  let heroImages: Array<{ desktop: string; mobile?: string }>| null = null;
+  // heroImages will be an array of slide objects: { desktop: string, mobile?: string, name?: string }
+  let heroImages: Array<{ desktop: string; mobile?: string; name?: string }>| null = null;
 
   if (homePage?.hero) {
     if (typeof homePage.hero.image === "string") {
@@ -42,8 +42,9 @@ export default async function Page() {
           // new object shape: { image: <image>, mobileImage: <image> }
           const desktop = img?.image?.asset?.url || img?.image || null;
           const mobile = img?.mobileImage?.asset?.url || img?.mobileImage || null;
+          const name = img?.name || img?.title || null;
           if (!desktop && !mobile) return null;
-          return { desktop: desktop || mobile, mobile: mobile || undefined };
+          return { desktop: desktop || mobile, mobile: mobile || undefined, name: name || undefined };
         })
         .filter(Boolean) as Array<{ desktop: string; mobile?: string }>;
     }

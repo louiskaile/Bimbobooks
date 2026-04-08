@@ -49,6 +49,12 @@ export default defineType({
               type: 'object',
               fields: [
                 {
+                  name: 'name',
+                  title: 'Slide Name',
+                  type: 'string',
+                  description: 'Optional name/label for this slide (displayed on the site)'
+                },
+                {
                   name: 'image',
                   title: 'Desktop Image',
                   type: 'image',

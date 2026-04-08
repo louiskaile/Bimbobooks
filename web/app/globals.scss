@@ -104,3 +104,10 @@ a:focus {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
 }
+
+/* When enabled on mobile, hide the browser's native cursor so only our visible mobile cursor is shown */
+@media (max-width: 899px) {
+  .no-native-cursor * {
+    cursor: none !important;
+  }
+}
