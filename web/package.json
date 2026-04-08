@@ -4,7 +4,8 @@
   "scripts": {
     "predev": "npm run typegen",
     "dev": "next dev --turbopack",
-    "prebuild": "npm run typegen",
+    "prebuild": "npm run typegen && npm run generate:icons",
+    "generate:icons": "node ./scripts/generate-favicons.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -37,6 +38,9 @@
     "@types/react-dom": "^19.1.7",
     "eslint": "^9.32.0",
     "eslint-config-next": "^15.4.5",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "sharp": "^0.32.0",
+    "png-to-ico": "^1.0.0",
+    "to-ico": "^1.0.0"
   }
 }

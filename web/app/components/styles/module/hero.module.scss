@@ -10,6 +10,11 @@
   background-color: #000; /* ensures edges are black when address bar hides/shows */
   overflow: hidden;
   z-index: 1100;
+  /* Hide native cursor on mobile so only our custom mobile cursor element shows */
+  @media (max-width: 899px) {
+    cursor: none;
+    * { cursor: none; }
+  }
 }
 
 .bg {
@@ -66,26 +71,6 @@
   align-items: flex-end;
   justify-content: space-between;
   position: relative;
-  }
-}
-
-.slideName {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: env(safe-area-inset-top, 24px);
-  z-index: 30;
-  color: #fff;
-  font-size: 14px;
-  opacity: 0.95;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-  pointer-events: none;
-}
-
-@include breakpoint(medium) {
-  .slideName {
-    font-size: 16px;
-    top: calc(env(safe-area-inset-top, 24px) + 8px);
   }
 }
 
