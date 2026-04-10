@@ -143,7 +143,7 @@ export default function HeroImageText({
     return () => section.removeEventListener('mousemove', onMouseMove);
   }, [slides.length, advanceSlide]);
 
-  // Mobile fallback: slow auto-timer (5s)
+  // Mobile fallback: faster auto-timer (1s)
   useEffect(() => {
     mounted.current = true;
     if (slides.length <= 1 || !isMobile) return;
@@ -151,7 +151,7 @@ export default function HeroImageText({
     const id = setInterval(() => {
       if (!mounted.current) return;
       advanceSlide();
-    }, 2000);
+    }, 1000);
 
     return () => {
       mounted.current = false;
