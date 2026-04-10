@@ -91,6 +91,11 @@ a:focus {
   position: fixed;
   width: 12px;
   height: 12px;
+
+  @media (max-width: 899px) {
+    width: 26px;
+    height: 26px;
+  }
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
