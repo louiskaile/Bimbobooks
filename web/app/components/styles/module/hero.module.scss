@@ -167,30 +167,7 @@
   }
 }
 
-/* visible mobile cursor: only shown on small screens where native cursor isn't available */
-.mobileCursor {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 12px;
-  height: 12px;
-  background-image: url('/cursors/custom-cursor.svg');
-  background-size: contain;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(1);
-  transition: transform 120ms ease, opacity 120ms ease;
-  z-index: 2000;
-  display: none;
-}
 
-.mobileCursorActive {
-  transform: translate(-50%, -50%) scale(1);
-}
-
-@include breakpoint(medium) {
-  .mobileCursor { display: none; }
-}
 
 @include breakpoint(medium) {
   .footerLeft a::after {

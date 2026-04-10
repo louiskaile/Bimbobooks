@@ -56,7 +56,7 @@ export default function HeroImageText({
   const [currentIndex, setCurrentIndex] = useState(0);
   const mounted = useRef(true);
   const sectionRef = useRef<HTMLElement>(null);
-  const mobileCursorRef = useRef<HTMLDivElement | null>(null);
+
 
   // For crossfade: track which DOM layer is visible and the background images for both
   const [showA, setShowA] = useState(true);
@@ -197,53 +197,7 @@ export default function HeroImageText({
     };
   }, []);
 
-  // Mobile: show a visible custom cursor that follows touch and shrinks on press
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const cursorEl = mobileCursorRef.current;
-    if (!cursorEl) return;
 
-    const showAt = (x: number, y: number) => {
-      cursorEl.style.left = `${x}px`;
-      cursorEl.style.top = `${y}px`;
-      cursorEl.style.display = 'block';
-    };
-
-    const hide = () => {
-      cursorEl.style.display = 'none';
-    };
-
-    // Show cursor on touchstart only (no dragging follow)
-    const onTouchStart = (ev: TouchEvent) => {
-      const t = ev.touches[0];
-      if (!t) return;
-      showAt(t.clientX, t.clientY);
-      cursorEl.classList.add(styles.mobileCursorActive);
-      // hide native cursor while our custom mobile cursor is visible
-      try {
-        document.documentElement.classList.add('no-native-cursor');
-      } catch (e) {}
-    };
-
-    const onTouchEnd = () => {
-      // remove the pressed/shrunken state but keep the cursor visible
-      cursorEl.classList.remove(styles.mobileCursorActive);
-      try {
-        document.documentElement.classList.remove('no-native-cursor');
-      } catch (e) {}
-    };
-
-    sectionRef.current.addEventListener('touchstart', onTouchStart, { passive: true } as AddEventListenerOptions);
-    sectionRef.current.addEventListener('touchend', onTouchEnd);
-
-    // also clear on touchcancel to be safe
-    sectionRef.current.addEventListener('touchcancel', onTouchEnd as any);
-
-    return () => {
-      sectionRef.current?.removeEventListener('touchstart', onTouchStart as any);
-      sectionRef.current?.removeEventListener('touchend', onTouchEnd as any);
-    };
-  }, []);
 
   return (
     <section ref={sectionRef} className={styles.root}>
@@ -288,7 +242,7 @@ export default function HeroImageText({
       </div>
 
       <div className={styles.footerRight}>© BIMBO BOOKS 2026</div>
-      <div ref={mobileCursorRef} className={styles.mobileCursor} />
+
     </section>
   );
 }
