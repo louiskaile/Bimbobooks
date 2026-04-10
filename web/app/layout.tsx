@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { VisualEditing, toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import BodyClassUpdater from "@/app/components/BodyClassUpdater";
 // Site credit removed
 import TouchTapEffect from "@/app/components/TouchTapEffect";
@@ -78,6 +79,16 @@ export default async function RootLayout({
 
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
+          {process.env.NODE_ENV === 'production' && (
+            <>
+              {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+              )}
+              {process.env.NEXT_PUBLIC_GTM_CONTAINER_ID && (
+                <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_CONTAINER_ID} />
+              )}
+            </>
+          )}
           {isDraftMode && (
             <>
               <DraftModeToast />
